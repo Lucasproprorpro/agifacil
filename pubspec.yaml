@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   cupertino_icons: ^1.0.8
 
   # Estado
@@ -31,7 +32,7 @@ dependencies:
 
   # Recursos de dispositivo
   image_picker: ^1.1.2
-  geolocator: ^12.0.0
+  geolocator: ^13.0.2
   url_launcher: ^6.3.0
   share_plus: ^9.0.0
   file_picker: ^8.0.0+1
@@ -40,6 +41,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   flutter_lints: ^4.0.0
 
 flutter:
