@@ -26,13 +26,17 @@ jobs:
       - name: Configurar Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'
+          flutter-version: '3.24.5'
           channel: stable
           cache: true
 
       # 4) Gera a pasta android/ (o projeto não a inclui, por design)
       - name: Gerar pasta de plataforma (android/)
         run: flutter create --platforms=android .
+        - name: Configurar Android SDK
+  run: |
+    sed -i 's/compileSdk = flutter.compileSdkVersion/compileSdk = 35/' android/app/build.gradle
+    sed -i 's/compileSdkVersion flutter.compileSdkVersion/compileSdkVersion 35/' android/app/build.gradle
 
       # 5) Injeta as permissões no AndroidManifest recém-gerado
       #    (INTERNET, CAMERA, LOCATION e leitura de arquivo p/ backup)
