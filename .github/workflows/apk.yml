@@ -29,20 +29,19 @@ jobs:
       - name: Gerar pasta Android
         run: flutter create --platforms=android .
 
-      - name: Configurar Android SDK
+      - name: Corrigir configuração Android
         run: |
-          sed -i 's/compileSdk = flutter.compileSdkVersion/compileSdk = 35/' android/app/build.gradle
-          sed -i 's/compileSdkVersion flutter.compileSdkVersion/compileSdkVersion 35/' android/app/build.gradle
+          sed -i "s/compileSdk = flutter.compileSdkVersion/compileSdk = 35/" android/app/build.gradle
+          sed -i "s/compileSdkVersion flutter.compileSdkVersion/compileSdkVersion 35/" android/app/build.gradle
+          echo "android.compileSdk=35" >> android/gradle.properties
 
-      - name: Adicionar permissões no AndroidManifest
+      - name: Adicionar permissões
         run: |
           MANIFEST=android/app/src/main/AndroidManifest.xml
           perl -0pi -e 's{(<application)}{<uses-permission android:name="android.permission.INTERNET"/>\n    <uses-permission android:name="android.permission.CAMERA"/>\n    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>\n    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>\n    $1}' "$MANIFEST"
 
-      - name: Limpar cache e atualizar dependências
-        run: |
-          flutter clean
-          flutter pub upgrade
+      - name: Limpar projeto
+        run: flutter clean
 
       - name: Baixar dependências
         run: flutter pub get
